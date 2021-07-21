@@ -1,6 +1,6 @@
 # LoRa-E5-Tiny
 
-<img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-top.png" width="33%" height="33%"><img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-bot.png" width="33%" height="33%">
+<img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-top.png" width="40%" height="40%">&nbsp;<img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-bot.png" width="40%" height="40%">
 
 Based on [LoRa-E5](https://www.seeedstudio.com/LoRa-E5-Wireless-Module-p-4745.html) from Seedstudio, but I wanted something really Tiny so I removed loy of stuff and left only JTAG prog, Serial and I2C Stemma QWIIC connector, and of course cell coin handler.
 
