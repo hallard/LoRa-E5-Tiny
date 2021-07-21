@@ -1,6 +1,6 @@
 # LoRa-E5-Tiny
 
-<img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-top.png">
+<img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-top.png" width="50%" height="50%"> <img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-top.png" width="50%" height="50%">
 
 Based on [LoRa-E5](https://www.seeedstudio.com/LoRa-E5-Wireless-Module-p-4745.html) from Seedstudio, but I wanted something really Tiny so I removed loy of stuff and left only JTAG prog, Serial and I2C Stemma QWIIC connector, and of course cell coin handler.
 
@@ -67,9 +67,9 @@ Check Seeed format [BOM](https://github.com/hallard/LoRa-E5-Tiny/blob/main/LoRa-
 Before flashing any custom firmware, I strongly advise to test the board with default AT-Firmware to get the keys (even if you can use your own of course). 
 
 Do do this, use 3.3V (and NOT 5V) FTDI USB/Serial adapter, I love this one from [sparkun](https://www.sparkfun.com/products/14050)
-![](https://cdn.sparkfun.com//assets/parts/1/1/8/8/8/14050-01.jpg)
+<img src="https://cdn.sparkfun.com//assets/parts/1/1/8/8/8/14050-01.jpg" width="50%" height="50%">
 
-Main idea is to connect with something like this idea (Thanks @mharizanov for this awesome simple efficient idea) and could be dual row male headers also.
+Main idea is to connect with something like this idea (Thanks [@mharizanov](https://github.com/mharizanov) for this awesome simple efficient idea) and could be dual row male headers also.
 
 <img src="https://harizanov.com/wp-content/uploads/2013/03/IMG_20150208_16352922.jpg">
 
@@ -128,7 +128,7 @@ Pay attention, that 1st time you need to erase SeeeStudio original firmware, mak
 From IDE you can build the example. If you plug your STLink while project opened, mbed ide will ask you if you want to set it up for this project/target, once approved you can compile, flash and even debug from mbed ide (need some tools installed, [read](https://os.mbed.com/docs/mbed-studio/current/monitor-debug/debugging-with-mbed-studio.html), very nice.
 
 
-<img src="https://github.com/hallard/LoRa-E5-Breakout/blob/main/pictures/mbed-ide.png">
+<!--<img src="https://github.com/hallard/LoRa-E5-Breakout/blob/main/pictures/mbed-ide.png">-->
 
 You can also see logs with the FTDI adapter and any Serial terminal set to 115200 bauds 8 bits no parity 1 stop bit (8N1)
 
