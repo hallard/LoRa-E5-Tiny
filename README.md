@@ -115,7 +115,8 @@ Once IDE installed:
 ```json
         "LORA_E5_TINY": {
             "stm32wl-lora-driver.debug_tx": "PA_9",
-            "stm32wl-lora-driver.debug_rx": "PB_13"
+            "stm32wl-lora-driver.debug_rx": "PB_13",
+            "stm32wl-lora-driver.rf_switch_config": 2,
         }
 ```
 
