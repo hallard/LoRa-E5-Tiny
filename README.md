@@ -1,6 +1,6 @@
 # LoRa-E5-Tiny
 
-<img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-top.png" width="40%" height="40%">&nbsp;<img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-bot.png" width="40%" height="40%">
+<img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-assembled.png">height="40%">
 
 Based on [LoRa-E5](https://www.seeedstudio.com/LoRa-E5-Wireless-Module-p-4745.html) from Seedstudio, but I wanted something really Tiny so I removed loy of stuff and left only JTAG prog, Serial and I2C Stemma QWIIC connector, and of course cell coin handler.
 
@@ -10,7 +10,11 @@ Based on [LoRa-E5](https://www.seeedstudio.com/LoRa-E5-Wireless-Module-p-4745.ht
 
 I'm using mainly to flash custom firmware in it, and not using AT default firmware.
 
-> :warning: **These boards have not been received** so I can't confirm they works but I'm confident on this point
+> :warning: **These boards have been received** they works as expected (but stil not tried with cell coin powering)
+
+## Challenges
+
+With this consumption [issue](https://forum.rakwireless.com/t/rak3172-too-much-consumption-in-transmit-eu868/4781/5) discovered on LoRa-E5 boards (but also on RAK3172) I'm not condfdent it will be able to works on Cell Coin CR2450 battery even if I added 2 330uF capacitors on 3.3V rail.
 
 ## Features
 
@@ -50,8 +54,11 @@ Hoping one day OSHparks will thanks me giving them this market.
 
 **Top & bottom side V1.0**
 
+<img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-top-bot.png">
+<!--
 <img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-top.png">
 <img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-bot.png">
+-->
 
 ### Bill Of Material
 
@@ -62,37 +69,106 @@ use only what you need dependings on what you want to do.
 
 Check Seeed format [BOM](https://github.com/hallard/LoRa-E5-Tiny/blob/main/LoRa-E5-Tiny-BOM.xlsx) File, check on [Seeed OPL](https://www.seeedstudio.com/opl.html) for manufacturer SKU match.
 
-## Firmware
+### Test Board out of factory stock 
 
-Before flashing any custom firmware, I strongly advise to test the board with default AT-Firmware to get the keys (even if you can use your own of course). 
+When the boards are from factory, default AT firmware is flashed and thus we have the possibility to test the board before flashing custom firmware and maily also get defaults keys from device.
 
-Do do this, use 3.3V (and NOT 5V) FTDI USB/Serial adapter, I love this one from [sparkun](https://www.sparkfun.com/products/14050)
-<img src="https://cdn.sparkfun.com//assets/parts/1/1/8/8/8/14050-01.jpg" width="50%" height="50%">
+To do so, connect a 3V3 FTDI Type USB/Serial to access Serial Console 
 
-Main idea is to connect with something like this idea (Thanks [@mharizanov](https://github.com/mharizanov) for this awesome simple efficient idea) and could be dual row male headers also.
+> :warning: **Do not use 5V configured FTDI** 
 
-<img src="https://harizanov.com/wp-content/uploads/2013/03/IMG_20150208_16352922.jpg">
+I personnaly use these one for [Sparkun](https://www.sparkfun.com/products/14050) but you can find clones anywhere on the Web.
+
+![](https://cdn.sparkfun.com/assets/parts/1/1/8/8/8/14050-01.jpg)
+
+Once done open Serial terminal (the one from FTDI Serial Port) configured as `9600` BPS `8N1`, no flow control, echo typed characters and set to CR+LF for enter key, press reset button and you should be able to see banner
 
 - Connect FTDI on the 6 pins edge header of the board (if PCB is 2mm thickness should works without soldering)
 - use them a terminal application and open the port on your computer corresponding to the FTDI device
 - set terminal settings to 9600 bauds 8 bits no parity 1 stop bit (8N1)
-- check with at command `AT` device should anwser ``+AT: OK``
 
-then get keys of the device
+Once done open Serial terminal (the one from FTDI Serial Port) configured as `9600` BPS `8N1`, no flow control, echo typed characters and set to CR+LF for enter key
 
+Then type `AT` command to see if the LoRa board answer, in this example the board answered `+AT: OK` which is correct
 ```
 AT 
 +AT: OK
-AT+ID 
-+ID: DevAddr, 24:90:05:44
-+ID: DevEui, 2C:F7:F1:20:24:90:05:44
+```
+
+Now get the device version
+```
+AT+VER 
++VER: 4.0.11
+```
+
+Now get the device information 
+```
+AT+ID  
++ID: DevAddr, 24:90:08:93
++ID: DevEui, 2C:F7:F1:20:24:90:08:93
 +ID: AppEui, 80:00:00:00:00:00:00:06
 ```
 
-### Provision device on Network Server
+I'm using [TTN](https://www.thethingsnetwork.org/) for testing so please follow excellent RAK guide on how to provision your device onto TTN [here](https://docs.rakwireless.com/Product-Categories/WisDuo/RAK3172-Module/Quickstart/#connecting-to-the-things-network-ttn)
 
-For testing I'm always using The Things Network (TTN).
-So next step is to provision this new device to TTN with the above keys (no need DevAddr) and get APPKEY from TTN (random generate) then get the key issued from TTN (we'll use it later below)
+In our case we will use the AppKey generated from TTN when provisionning device, just provision your device onto TTN, get the key and put into the device as follow with command `AT+KEY=APPKEY` in our case AppKey is `B7536DCEFB1EBC4AB9871293F6FA7DB5`
+```
+AT+KEY=APPKEY,"B7536DCEFB1EBC4AB9871293F6FA7DB5" 
++KEY: APPKEY B7536DCEFB1EBC4AB9871293F6FA7DB5
+```
+
+Set ADR + Frequency Plan EU868 + OTAA
+```
+AT+ADR=ON   
++ADR: ON
+AT+DR=EU868  
++DR: EU868
+AT+MODE=LWOTAA 
++MODE: LWOTAA
+```
+
+Check Frequency Plan
+```
+AT+DR=SCHEME 
++DR: EU868
++DR: EU868 DR0  SF12 BW125K 
++DR: EU868 DR1  SF11 BW125K 
++DR: EU868 DR2  SF10 BW125K 
++DR: EU868 DR3  SF9  BW125K 
++DR: EU868 DR4  SF8  BW125K 
++DR: EU868 DR5  SF7  BW125K 
++DR: EU868 DR6  SF7  BW250K 
++DR: EU868 DR7  FSK  50kbps 
++DR: EU868 DR8  RFU
++DR: EU868 DR9  RFU
++DR: EU868 DR10 RFU
++DR: EU868 DR11 RFU
++DR: EU868 DR12 RFU
++DR: EU868 DR13 RFU
++DR: EU868 DR14 RFU
++DR: EU868 DR15 RFU
+```
+
+Now time to join (be sure device is provisioned on TTN and you have a TTN gateway around)
+```
+AT+JOIN 
++JOIN: Start
++JOIN: NORMAL
++JOIN: Network joined
++JOIN: NetID 000013 DevAddr 26:0B:63:94
++JOIN: Done
+```
+
+Now send confirmed Hello World message
+```
+AT+CMSG="Hello World"  
++CMSG: Start
++CMSG: Wait ACK
++CMSG: FPENDING
++CMSG: ACK Received
++CMSG: RXWIN1, RSSI -40, SNR 5.0
++CMSG: Done
+```
 
 ### Compile and flash Firmware
 
@@ -114,9 +190,10 @@ Once IDE installed:
 
 ```json
         "LORA_E5_TINY": {
-            "stm32wl-lora-driver.debug_tx": "PA_9",
-            "stm32wl-lora-driver.debug_rx": "PB_13",
             "stm32wl-lora-driver.rf_switch_config": 2,
+            "stm32wl-lora-driver.debug_rx": "LED1",
+            "stm32wl-lora-driver.debug_tx": "LED2",
+            "stm32wl-lora-driver.debug_invert": 1
         }
 ```
 
