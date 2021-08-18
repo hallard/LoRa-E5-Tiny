@@ -12,7 +12,7 @@ I'm using mainly to flash custom firmware in it, and not using AT default firmwa
 
 ## Challenges
 
-With this consumption [issue](https://forum.rakwireless.com/t/rak3172-too-much-consumption-in-transmit-eu868/4781/5) discovered on LoRa-E5 boards (but also on RAK3172) I'm not confident it will works on Cell Coin CR2450 battery even if I added 2 330uF capacitors on 3.3V rail.
+With this consumption [issue](https://forum.rakwireless.com/t/rak3172-too-much-consumption-in-transmit-eu868/4781) discovered on LoRa-E5 boards (but also on RAK3172) I'm not confident it will works on Cell Coin CR2450 battery even if I added 2 330uF capacitors on 3.3V rail.
 
 ## Features
 
