@@ -1,20 +1,18 @@
 # LoRa-E5-Tiny
 
-<img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-assembled.png">height="40%">
+<img src="https://github.com/hallard/LoRa-E5-Tiny/blob/main/pictures/LoRa-E5-Tiny-assembled.png" width="50%" height="50%">
 
 Based on [LoRa-E5](https://www.seeedstudio.com/LoRa-E5-Wireless-Module-p-4745.html) from Seedstudio, but I wanted something really Tiny so I removed loy of stuff and left only JTAG prog, Serial and I2C Stemma QWIIC connector, and of course cell coin handler.
-
-> :warning: **This board is experimental** : Use at your own risk, 
 
 > :eyes: take a look on this excellent [reading](https://www.rs-online.com/designspark/can-i-prolong-my-coin-cell-battery-life-with-a-capacitor) on how to use capacitor to prolong cell coin batteries and understand the risk. I will use for EU8868 so for peaks approx 40mA, 3 times less than in the article so I guess it could works with 2 x 220uF or 470uF capacitors. Challenge would be to find them in 1206 footprint format.
 
 I'm using mainly to flash custom firmware in it, and not using AT default firmware.
 
-> :warning: **These boards have been received** they works as expected (but stil not tried with cell coin powering)
+> :warning: **These boards have been received** they works as expected but stil not tried with cell coin powering
 
 ## Challenges
 
-With this consumption [issue](https://forum.rakwireless.com/t/rak3172-too-much-consumption-in-transmit-eu868/4781/5) discovered on LoRa-E5 boards (but also on RAK3172) I'm not condfdent it will be able to works on Cell Coin CR2450 battery even if I added 2 330uF capacitors on 3.3V rail.
+With this consumption [issue](https://forum.rakwireless.com/t/rak3172-too-much-consumption-in-transmit-eu868/4781/5) discovered on LoRa-E5 boards (but also on RAK3172) I'm not confident it will works on Cell Coin CR2450 battery even if I added 2 330uF capacitors on 3.3V rail.
 
 ## Features
 
@@ -79,7 +77,7 @@ To do so, connect a 3V3 FTDI Type USB/Serial to access Serial Console
 
 I personnaly use these one for [Sparkun](https://www.sparkfun.com/products/14050) but you can find clones anywhere on the Web.
 
-![](https://cdn.sparkfun.com/assets/parts/1/1/8/8/8/14050-01.jpg)
+<img src="https://cdn.sparkfun.com/assets/parts/1/1/8/8/8/14050-01.jpg" width="30%" height="30%">
 
 Once done open Serial terminal (the one from FTDI Serial Port) configured as `9600` BPS `8N1`, no flow control, echo typed characters and set to CR+LF for enter key, press reset button and you should be able to see banner
 
